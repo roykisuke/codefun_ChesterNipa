@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffled Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        nav {
+            background: rgba(44, 62, 80, 0.9);
+            padding: 30px;
+            backdrop-filter: blur(90px);
+            display: flex;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            color: #00b894;
+            font-size: 1.2rem;
+        }
+        .nav-links {
+                display: flex;
+                gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-item {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 0.5rem 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+}
+        .nav-item:hover, .nav-item .active {
+        background: #6c5ce7;
+        transform: translateY(-2px);
+
+}
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+        .options {
+            margin-top: 10px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background: #e8f4f8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .option:hover {
+            background: #d4e6f1;
+        }
+        .option.selected {
+            background: #3498db;
+            color: white;
+        }
+        .option.correct {
+            background: #2ecc71;
+            color: white;
+        }
+        .option.incorrect {
+            background: #e74c3c;
+            color: white;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .progress {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .result {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+        }
+        .review-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .review-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .review-correct {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .review-incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .score-display {
+            text-align: center;
+            margin: 20px auto;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background-color: #2c3e50;
+                padding: 15px;
+                border-radius: 5px;
+                width: 200px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .container {
+                margin: 10px;
+                height: 800px;
+            }
+            .option {
+            display: flex;
+            margin: 8px 0;
+            padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">CodeFun</div>
+        <div class="hamburger">☰</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item" class="active">🏠 Home</a>
+            <a href="html.html" class="nav-item">🌐Basic HTML</a>
+            <a href="css.html" class="nav-item">🎨CSS Styles</a>
+            <a href="js.html" class="nav-item">⚡JS's Fundamental</a>
+            <a href="#about" class="nav-item">ℹ️ About</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Quiz Time!</h1>
+        <div class="progress">Question <span id="current">1</span> of 10</div>
+        <div id="quiz-container"></div>
+        <div class="controls">
+            <button id="prev" disabled>Previous</button>
+            <button id="next">Next</button>
+        </div>
+        <div class="score-display" id="scoreDisplay">
+            <h3 id="userName"></h3>
+            <p>Score: <span id="cssScore">Not taken</span></p>
+        </div>
+        <div class="action-buttons" id="action-buttons">
+            <button id="back-btn">Back to Lesson</button>
+            <button id="review-btn">Review Answers</button>
+        </div>
+        <div class="review-container" id="review-container"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Quiz questions
+        const questions = [
+            {
+                question: "What does CSS stand for?",
+                options: [
+                    "Creative Style Sheets",
+                    "Cascading Style Sheets",
+                    "Computer Style Sheets",
+                    "Colorful Style Sheets"
+                ],
+                answer: "Cascading Style Sheets"
+            },
+            {
+                question: "Which property is used to change the background color?",
+                options: ["color", "bgcolor", "background-color", "background"],
+                answer: "background-color"
+            },
+            {
+                question: "How do you select an element with id 'demo'?",
+                options: ["#demo", ".demo", "*demo", "demo"],
+                answer: "#demo"
+            },
+            {
+                question: "Which property is used to change the text color of an element?",
+                options: ["text-color", "color", "font-color", "text-style"],
+                answer: "color"
+            },
+            {
+                question: "What is the correct CSS syntax for making all <p> elements bold?",
+                options: [
+                    "p {text-size: bold}",
+                    "p {font-weight: bold}",
+                    "p {style: bold}",
+                    "p {text: bold}"
+                ],
+                answer: "p {font-weight: bold}"
+            },
+            {
+                question: "How do you add a comment in CSS?",
+                options: [
+                    "// this is a comment",
+                    "<!-- this is a comment -->",
+                    "/* this is a comment */",
+                    "' this is a comment"
+                ],
+                answer: "/* this is a comment */"
+            },
+            {
+                question: "Which CSS property controls the text size?",
+                options: ["text-size", "font-style", "text-style", "font-size"],
+                answer: "font-size"
+            },
+            {
+                question: "What is the default value of the position property?",
+                options: ["relative", "fixed", "absolute", "static"],
+                answer: "static"
+            },
+            {
+                question: "How do you make a list not display bullet points?",
+                options: [
+                    "list-style-type: no-bullet",
+                    "list: none",
+                    "list-style-type: none",
+                    "bulletpoints: none"
+                ],
+                answer: "list-style-type: none"
+            },
+            {
+                question: "Which property is used to create space between elements?",
+                options: ["spacing", "margin", "padding", "border"],
+                answer: "margin"
+            }
+        ];
+
+        // Shuffle questions and options
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Shuffle questions and their options
+        const shuffledQuestions = shuffleArray([...questions]);
+        shuffledQuestions.forEach(q => {
+            q.options = shuffleArray([...q.options]);
+        });
+
+        // Quiz state
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(shuffledQuestions.length).fill(null);
+
+        // DOM elements
+        const quizContainer = document.getElementById('quiz-container');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const currentEl = document.getElementById('current');
+        const resultEl = document.getElementById('result');
+        const actionButtons = document.getElementById('action-buttons');
+        const reviewContainer = document.getElementById('review-container');
+        const backBtn = document.getElementById('back-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const userName = document.getElementById('userName');
+        const cssScore = document.getElementById('cssScore');
+
+        // Navbar toggle for mobile
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Initialize quiz
+        function initQuiz() {
+            renderQuestions();
+            showQuestion(currentQuestion);
+            updateButtons();
+            actionButtons.style.display = 'none';
+        }
+
+        // Render all questions
+        function renderQuestions() {
+            shuffledQuestions.forEach((q, index) => {
+                const questionEl = document.createElement('div');
+                questionEl.className = 'question';
+                questionEl.id = `question-${index}`;
+                
+                const questionText = document.createElement('h3');
+                questionText.textContent = q.question;
+                questionEl.appendChild(questionText);
+                
+                const optionsEl = document.createElement('div');
+                optionsEl.className = 'options';
+                
+                q.options.forEach((option, i) => {
+                    const optionEl = document.createElement('div');
+                    optionEl.className = 'option';
+                    optionEl.textContent = option;
+                    optionEl.dataset.index = i;
+                    optionEl.addEventListener('click', () => selectOption(index, i));
+                    optionsEl.appendChild(optionEl);
+                });
+                
+                questionEl.appendChild(optionsEl);
+                quizContainer.appendChild(questionEl);
+            });
+        }
+
+        // Show a specific question
+        function showQuestion(index) {
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+            document.getElementById(`question-${index}`).classList.add('active');
+            currentEl.textContent = index + 1;
+            
+            // Highlight selected answer if exists
+            if (userAnswers[index] !== null) {
+                const options = document.querySelectorAll(`#question-${index} .option`);
+                options[userAnswers[index]].classList.add('selected');
+            }
+        }
+
+        // Select an option
+        function selectOption(questionIndex, optionIndex) {
+            const options = document.querySelectorAll(`#question-${questionIndex} .option`);
+            
+            // Remove previous selection
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Mark selected option
+            options[optionIndex].classList.add('selected');
+            userAnswers[questionIndex] = optionIndex;
+        }
+
+        // Update navigation buttons
+        function updateButtons() {
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === shuffledQuestions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        // Show quiz results
+        function showResults() {
+            // Calculate score
+            score = 0;
+            shuffledQuestions.forEach((q, i) => {
+                if (userAnswers[i] !== null && q.options[userAnswers[i]] === q.answer) {
+                    score++;
+                }
+            });
+            
+            // Hide quiz and show only name/score
+            quizContainer.style.display = 'none';
+            document.querySelector('.controls').style.display = 'none';
+            resultEl.style.display = 'none'; 
+            actionButtons.style.display = 'flex';
+            
+            // Show centered name and score
+            scoreDisplay.style.display = 'block';
+            userName.textContent = localStorage.getItem('userName');
+            cssScore.textContent = `${score}/${shuffledQuestions.length}`;
+            localStorage.setItem('cssScore', score);
+        }
+
+        // Show review of answers
+        function showReview() {
+            reviewContainer.innerHTML = '';
+            reviewContainer.style.display = 'block';
+            resultEl.style.display = 'none';
+            actionButtons.style.display = 'none';
+            
+            shuffledQuestions.forEach((q, i) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item';
+                
+                const questionText = document.createElement('h4');
+                questionText.textContent = q.question;
+                reviewItem.appendChild(questionText);
+                
+                const userAnswer = userAnswers[i] !== null ? q.options[userAnswers[i]] : 'Not answered';
+                const isCorrect = userAnswer === q.answer;
+                
+                const answerText = document.createElement('p');
+                answerText.textContent = `Your answer: ${userAnswer}`;
+                answerText.className = isCorrect ? 'review-correct' : 'review-incorrect';
+                reviewItem.appendChild(answerText);
+                
+                if (!isCorrect) {
+                    const correctText = document.createElement('p');
+                    correctText.textContent = `Correct answer: ${q.answer}`;
+                    correctText.className = 'review-correct';
+                    reviewItem.appendChild(correctText);
+                }
+                
+                reviewContainer.appendChild(reviewItem);
+            });
+            
+            // Add back to lesson button at the bottom
+            const backToLessonBtn = document.createElement('button');
+            backToLessonBtn.textContent = 'Back to Lesson';
+            backToLessonBtn.className = 'review-back-btn';
+            backToLessonBtn.style.marginTop = '20px';
+            backToLessonBtn.style.marginLeft = '0';
+            backToLessonBtn.onclick = () => window.location.href = 'css.html';
+            reviewContainer.appendChild(backToLessonBtn);
+        }
+
+        // Back to lesson function
+        function backToQuiz() {
+            window.location.href = 'css.html';
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+                updateButtons();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < shuffledQuestions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+                updateButtons();
+            } else {
+                showResults();
+            }
+        });
+
+        reviewBtn.addEventListener('click', showReview);
+        backBtn.addEventListener('click', backToQuiz);
+
+        // Initialize the quiz
+        initQuiz();
+    </script>
+</body>
+</html>

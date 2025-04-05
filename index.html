@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFun Academy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .name {
+            position: fixed;
+            left: 20px;
+            top: 15%;
+            transform: translateY(-50%);
+            background: rgba(10, 10, 46, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 2px solid rgba(79, 255, 176, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            color: #4fffb0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            z-index: 100;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .welcome-text {
+            color: white;
+            opacity: 0.8;
+            margin-right: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translate(-100%, -50%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(0, -50%);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 12px;
+                padding: 10px 20px;
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translate(-50%, -100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translate(-50%, 0);
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1rem;
+            margin: 2rem auto;
+            text-align: center;
+            color: #fff;
+            max-width: 1200px;
+            border-radius: 15px;
+        }
+
+        .contact-section h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #4fffb0;
+            margin-bottom: 3rem;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: #4fffb0;
+        }
+
+        .social-link img {
+            width: 24px;
+            height: 24px;
+            filter: invert(1);
+        }
+
+        .social-link span {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover span {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .contact-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .social-links {
+                gap: 2rem;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+            }
+
+            .social-link img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            color: #dfe6e9;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            border-top: 2px solid rgba(79, 255, 176, 0.2);
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="index">
+        <nav class="game-nav">
+            <div class="logo">CodeFun Academy</div>
+            <div class="hamburger">☰</div>
+            <div class="nav-links">
+                <a href="#about" class="nav-item about-btn">ℹ️ About</a>
+                <a href="#contact" class="nav-item">📞 Contact</a>
+            </div>
+        </nav>
+    </div>
+    <div class="name">
+        <span class="welcome-text">Welcome!</span>
+        <span id="userName"></span>
+    </div>
+    <main>
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Welcome to CodeFun Academy!</h1>
+                <p>Start your coding adventure and level up your skills!</p>
+                <div class="character-select">
+                    <div class="character" >
+                       <a href="html.html"><img src="ads.webp" alt="HTML">
+                       <h3>HTML</h3></a>
+                    </div> 
+                    <div class="character" >
+                        <a href="css.html"><img src="delos.svg" alt="CSS">
+                        <h3>CSS</h3></a>
+                    </div>
+                    <div class="character">
+                        <a href="js.html"><img src="sc.png" alt="JAVA">
+                        <h3>JavaScript</h3></a>
+                    </div> 
+                </div>
+               <a href="html.html"><button class="start-btn" onclick="startAdventure()">Begin Your Journey!</button></a>
+            </div>
+        </section>
+    </div>
+
+
+
+
+        <section>
+            <div id="htmlcl">
+
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+        <section id="about">
+            <div class="about-content">
+                <h2>About Our Research Study</h2>
+                <div class="research-description">
+                    <p>This website is created for a research study on the challenges that Grade 11 ICT students face when learning programming. The study aims to understand the perceived difficulties and challenges that students encounter while learning programming concepts and skills.</p>
+                    <p>By exploring these challenges, the website hopes to provide insights and recommendations that can help improve the learning of programming of ICT students.</p>
+                </div>
+                <div class="credits">
+                    <p>Credits to My Pretty Ars</p>
+                    <div class="pixel-heart">❤️</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Added spacing div -->
+        <div style="margin: 4rem"></div>
+        
+        <div id="contact" class="contact-section">
+            <h2>Connect With Me</h2>
+            <div class="social-links">
+                <a href="https://www.facebook.com/chester.nipa" class="social-link" target="_blank">
+                    <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/facebook.svg" alt="Facebook">
+                    <span>Facebook</span>
+                </a>
+                <a href="mailto:roykisuke005@gmail.com" class="social-link" target="_blank">
+                    <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/gmail.svg" alt="Gmail">
+                    <span>Gmail</span>
+                </a>
+                <a href="https://www.tiktok.com/@chester_damn?_t=ZS-8vHX6jHGACI&_r=1" class="social-link" target="_blank">
+                    <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/tiktok.svg" alt="TikTok">
+                    <span>TikTok</span>
+                </a>
+                <a href="https://github.com/roykisuke" class="social-link" target="_blank">
+                    <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg" alt="GitHub">
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p> 2025 CodeFun Academy. All Rights Reserved.</p>
+    </footer>
+
+    <div id="game-overlay" class="hidden">
+        <div id="game-container"></div>
+    </div>
+
+    <script>
+        // Display user name from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                document.getElementById('userName').textContent = userName;
+            } else {
+                window.location.href = 'indexlogin.html'; // Redirect to login if no name found
+            }
+        });
+    </script>
+    <script src="login.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

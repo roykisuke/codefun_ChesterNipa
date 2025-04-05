@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFun Academy - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="mountains"></div>
+    <div class="container">
+        <div class="login-card">
+            <div class="pixel-border"></div>
+            <h1>Welcome!</h1>
+            <div class="pixel-divider"></div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    <div class="input-focus-effect"></div>
+                </div>
+                <button type="submit">
+                    <span class="button-text">Begin Your Journey!</span>
+                    <div class="button-glitch"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0a0a2e 0%, #1a1a4a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Press Start 2P', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="5" cy="5" r="1" fill="white"/></svg>') repeat;
+            opacity: 0.3;
+            animation: twinkling 2s infinite;
+        }
+
+        .mountains {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            background: 
+                linear-gradient(transparent 0%, rgba(26, 26, 74, 0.8) 20%),
+                linear-gradient(135deg, #2a2a6a 25%, transparent 25%) 0 0,
+                linear-gradient(225deg, #2a2a6a 25%, transparent 25%) 0 0,
+                linear-gradient(315deg, #2a2a6a 25%, transparent 25%) 0 0,
+                linear-gradient(45deg, #2a2a6a 25%, transparent 25%) 0 0;
+            background-size: 100px 100px;
+            background-repeat: repeat-x;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 90%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-card {
+            background: rgba(10, 10, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 2px solid rgba(79, 255, 176, 0.2);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pixel-border {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid #4fffb0;
+            border-radius: 16px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .pixel-border::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid #4fffb0;
+            border-radius: 18px;
+            opacity: 0.3;
+        }
+
+        .pixel-divider {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4fffb0, transparent);
+            margin: 20px auto;
+        }
+
+        h1 {
+            color: #4fffb0;
+            font-size: clamp(16px, 4vw, 24px);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #1a1a1a,
+                        -2px -2px 0 #4fffb0,
+                        2px -2px 0 #4fffb0,
+                        -2px 2px 0 #4fffb0;
+            letter-spacing: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            width: 100%;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(79, 255, 176, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: clamp(10px, 2vw, 12px);
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.3s ease;
+        }
+
+        .input-focus-effect {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid #4fffb0;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        input:focus + .input-focus-effect {
+            opacity: 0.5;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4fffb0;
+            box-shadow: 0 0 15px rgba(79, 255, 176, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: clamp(10px, 2.5vw, 15px);
+            background: #4fffb0;
+            border: none;
+            border-radius: 8px;
+            color: #1a1a1a;
+            font-size: clamp(10px, 2vw, 14px);
+            font-family: 'Press Start 2P', cursive;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .button-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #4fffb0;
+            opacity: 0;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 255, 176, 0.4);
+        }
+
+        button:hover .button-glitch {
+            animation: glitch 0.3s infinite;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .login-card {
+                padding: 20px;
+            }
+
+            .pixel-divider {
+                margin: 15px auto;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .login-card {
+                max-width: 80%;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .login-card {
+                max-width: 400px;
+            }
+        }
+    </style>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            if (name) {
+                localStorage.setItem('userName', name);
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Create dynamic stars
+        function createStars() {
+            const stars = document.querySelector('.stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                stars.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+</body>
+</html>
